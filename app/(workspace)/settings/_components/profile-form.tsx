@@ -31,12 +31,12 @@ export function ProfileForm({
 
   return (
     <div className="rounded-xl border border-gray-200 bg-white shadow-sm">
-      <div className="border-b border-gray-100 px-6 py-4">
+      <div className="border-b border-gray-100 px-4 py-4 sm:px-6">
         <h2 className="text-[15px] font-semibold text-gray-900">Profil</h2>
         <p className="mt-0.5 text-[12px] text-gray-400">Nama yang tampil di sidebar dan header</p>
       </div>
 
-      <form action={action} className="px-6 py-5 space-y-5">
+      <form action={action} className="space-y-5 px-4 py-5 sm:px-6">
         {state.error && (
           <div className="rounded-lg border border-red-200 bg-red-50 px-3 py-2.5 text-[12px] text-red-600">
             {state.error}
@@ -48,9 +48,9 @@ export function ProfileForm({
           <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-blue-500 text-[18px] font-bold text-white">
             {initials}
           </div>
-          <div>
+          <div className="min-w-0">
             <p className="text-[13px] font-medium text-gray-700">{currentName}</p>
-            <p className="text-[12px] text-gray-400">{email}</p>
+            <p className="truncate text-[12px] text-gray-400">{email}</p>
           </div>
         </div>
 
@@ -87,7 +87,7 @@ export function ProfileForm({
           <button
             type="submit"
             disabled={pending}
-            className="flex items-center gap-1.5 rounded-lg bg-blue-600 px-4 py-2 text-[13px] font-semibold text-white transition hover:bg-blue-700 disabled:opacity-60"
+            className="flex w-full items-center justify-center gap-1.5 rounded-full bg-blue-600 px-4 py-2 text-[13px] font-semibold text-white transition hover:bg-blue-700 disabled:opacity-60 sm:w-auto"
           >
             {pending && (
               <span className="h-3.5 w-3.5 animate-spin rounded-full border-2 border-white/30 border-t-white" />

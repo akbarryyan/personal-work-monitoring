@@ -44,7 +44,7 @@ export async function AppHeader() {
   }
 
   return (
-    <header className="flex h-15 shrink-0 items-center gap-4 border-b border-gray-200 bg-white px-6">
+    <header className="flex h-14 shrink-0 items-center gap-3 border-b border-gray-200 bg-white px-4 sm:h-15 sm:px-6">
       {/* Status dots */}
       <div className="flex items-center gap-1.5">
         <span className="h-3 w-3 rounded-full bg-red-400" />
@@ -52,13 +52,15 @@ export async function AppHeader() {
         <span className="h-3 w-3 rounded-full bg-gray-300" />
       </div>
 
-      <div className="ml-auto flex items-center gap-3">
+      <div className="ml-auto flex items-center gap-1.5 sm:gap-3">
 
         {/* Bell */}
         <NotificationBell notifications={notifications} />
 
         {/* Fullscreen */}
-        <FullscreenButton />
+        <div className="hidden sm:block">
+          <FullscreenButton />
+        </div>
 
         {/* User */}
         <UserMenu user={{ name: displayName, email, initials }} />

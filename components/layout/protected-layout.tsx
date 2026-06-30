@@ -1,6 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import { AppHeader } from "@/components/layout/app-header";
 import { AppSidebar } from "@/components/layout/app-sidebar";
+import { MobileNav } from "@/components/layout/mobile-nav";
 import { NavigationProgress } from "@/components/ui/navigation-progress";
 import { NavigationSpinner } from "@/components/ui/navigation-spinner";
 
@@ -31,16 +32,19 @@ export async function ProtectedLayout({ children }: ProtectedLayoutProps) {
   const initials = getInitials(fullName, email);
 
   return (
-    <div className="flex h-screen overflow-hidden bg-[#f5f6fa]">
+    <div className="flex h-dvh overflow-hidden bg-[#f5f6fa]">
       <NavigationProgress />
       <NavigationSpinner />
-      <AppSidebar user={{ name: displayName, email, initials }} />
+      <div className="hidden md:flex">
+        <AppSidebar user={{ name: displayName, email, initials }} />
+      </div>
       <div className="flex min-w-0 flex-1 flex-col overflow-hidden">
         <AppHeader />
-        <main className="flex-1 overflow-y-auto">
+        <main className="flex-1 overflow-y-auto pb-24 md:pb-0">
           {children}
         </main>
       </div>
+      <MobileNav />
     </div>
   );
 }

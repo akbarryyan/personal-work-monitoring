@@ -58,7 +58,7 @@ export function NotificationBell({ notifications }: { notifications: AppNotifica
       </button>
 
       {open && (
-        <div className="absolute right-0 top-full z-50 mt-2 w-80 overflow-hidden rounded-xl border border-gray-200 bg-white shadow-xl">
+        <div className="absolute right-[-3.25rem] top-full z-50 mt-2 w-[calc(100vw-2rem)] max-w-80 overflow-hidden rounded-xl border border-gray-200 bg-white shadow-xl sm:right-0">
           {/* Header */}
           <div className="flex items-center gap-2 border-b border-gray-100 px-4 py-3">
             <h3 className="text-[13px] font-semibold text-gray-900">Notifikasi</h3>

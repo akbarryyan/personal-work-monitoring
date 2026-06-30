@@ -48,9 +48,9 @@ function Filters() {
   }, [query]);
 
   return (
-    <div className="mb-4 flex items-center gap-3">
+    <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center">
       {/* Search input */}
-      <div className="relative flex-1 max-w-sm">
+      <div className="relative w-full sm:max-w-sm sm:flex-1">
         <svg
           className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
           width="14"
@@ -86,11 +86,11 @@ function Filters() {
       </div>
 
       {/* Status select */}
-      <div className="relative">
+      <div className="relative w-full sm:w-auto">
         <select
           value={status}
           onChange={(e) => updateParam("status", e.target.value)}
-          className={selectClass}
+          className={`${selectClass} w-full sm:w-auto`}
         >
           {STATUS_OPTIONS.map((o) => (
             <option key={o.value} value={o.value}>
@@ -102,11 +102,11 @@ function Filters() {
       </div>
 
       {/* Period select */}
-      <div className="relative">
+      <div className="relative w-full sm:w-auto">
         <select
           value={period}
           onChange={(e) => updateParam("period", e.target.value)}
-          className={selectClass}
+          className={`${selectClass} w-full sm:w-auto`}
         >
           {PERIOD_OPTIONS.map((o) => (
             <option key={o.value} value={o.value}>

@@ -40,7 +40,7 @@ export default async function SettingsPage() {
   const lastSignIn = user?.last_sign_in_at;
 
   return (
-    <div className="p-6">
+    <div className="p-4 sm:p-6">
       {/* Header */}
       <div className="mb-6">
         <h1 className="text-xl font-bold text-gray-900">Settings</h1>
@@ -51,25 +51,25 @@ export default async function SettingsPage() {
         </nav>
       </div>
 
-      <div className="grid gap-5 lg:grid-cols-2 items-start">
+      <div className="grid items-start gap-4 sm:gap-5 lg:grid-cols-2">
         {/* Left column */}
         <div className="space-y-5">
           <ProfileForm initials={initials} currentName={displayName} email={email} />
 
           {/* Account info */}
           <div className="rounded-xl border border-gray-200 bg-white shadow-sm">
-            <div className="border-b border-gray-100 px-6 py-4">
+            <div className="border-b border-gray-100 px-4 py-4 sm:px-6">
               <h2 className="text-[15px] font-semibold text-gray-900">Info Akun</h2>
               <p className="mt-0.5 text-[12px] text-gray-400">Detail sesi dan akun kamu</p>
             </div>
-            <div className="divide-y divide-gray-100 px-6">
+            <div className="divide-y divide-gray-100 px-4 sm:px-6">
               {[
                 { label: "Email", value: email },
                 { label: "Bergabung sejak", value: formatDate(createdAt) },
                 { label: "Login terakhir", value: formatDate(lastSignIn) },
                 { label: "Provider", value: user?.app_metadata?.provider ?? "email" },
               ].map(({ label, value }) => (
-                <div key={label} className="flex items-center justify-between py-3.5">
+                <div key={label} className="flex flex-col gap-1 py-3.5 sm:flex-row sm:items-center sm:justify-between">
                   <span className="text-[13px] text-gray-500">{label}</span>
                   <span className="text-[13px] font-medium text-gray-800">{value}</span>
                 </div>
@@ -84,12 +84,12 @@ export default async function SettingsPage() {
 
           {/* Danger zone */}
           <div className="rounded-xl border border-red-200 bg-white shadow-sm">
-            <div className="border-b border-red-100 px-6 py-4">
+            <div className="border-b border-red-100 px-4 py-4 sm:px-6">
               <h2 className="text-[15px] font-semibold text-red-700">Danger Zone</h2>
               <p className="mt-0.5 text-[12px] text-red-400">Tindakan yang tidak bisa dibatalkan</p>
             </div>
-            <div className="px-6 py-5">
-              <div className="flex items-center justify-between">
+            <div className="px-4 py-5 sm:px-6">
+              <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                 <div>
                   <p className="text-[13px] font-medium text-gray-800">Logout</p>
                   <p className="mt-0.5 text-[12px] text-gray-400">Keluar dari sesi aktif sekarang</p>
@@ -97,7 +97,7 @@ export default async function SettingsPage() {
                 <form action={logoutAction}>
                   <button
                     type="submit"
-                    className="rounded-lg border border-red-300 px-4 py-2 text-[13px] font-semibold text-red-600 transition hover:bg-red-50"
+                    className="rounded-full border border-red-300 px-4 py-2 text-[13px] font-semibold text-red-600 transition hover:bg-red-50"
                   >
                     Logout
                   </button>

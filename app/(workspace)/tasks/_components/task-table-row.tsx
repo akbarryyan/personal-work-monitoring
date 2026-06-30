@@ -209,7 +209,7 @@ export function TaskTableRow({ task }: { task: RowTask }) {
   const project = task.projects;
 
   return (
-    <div className="grid grid-cols-[minmax(0,2fr)_150px_130px_110px_100px] gap-4 px-5 py-4 transition hover:bg-gray-50">
+    <div className="grid gap-3 px-4 py-4 transition hover:bg-gray-50 md:grid-cols-[minmax(0,2fr)_150px_130px_110px_100px] md:gap-4 md:px-5">
       {/* Title */}
       <Link href={`/tasks/${task.id}`} className="min-w-0 block">
         <p className="truncate text-[14px] font-medium text-gray-900 hover:text-blue-600 transition">
@@ -221,7 +221,11 @@ export function TaskTableRow({ task }: { task: RowTask }) {
       </Link>
 
       {/* Project */}
-      <div className="flex items-center gap-1.5 min-w-0">
+      <div className="flex min-w-0 items-center justify-between gap-3 md:justify-start">
+        <span className="text-[11px] font-semibold uppercase tracking-wide text-gray-300 md:hidden">
+          Project
+        </span>
+        <div className="flex min-w-0 items-center gap-1.5">
         {project ? (
           <>
             <span className="h-2 w-2 shrink-0 rounded-full" style={{ background: project.color ?? "#94a3b8" }} />
@@ -230,16 +234,32 @@ export function TaskTableRow({ task }: { task: RowTask }) {
         ) : (
           <span className="text-[13px] text-gray-400">—</span>
         )}
+        </div>
       </div>
 
       {/* Status */}
-      <StatusCell taskId={task.id} initial={task.status} />
+      <div className="flex items-center justify-between gap-3 md:block">
+        <span className="text-[11px] font-semibold uppercase tracking-wide text-gray-300 md:hidden">
+          Status
+        </span>
+        <StatusCell taskId={task.id} initial={task.status} />
+      </div>
 
       {/* Priority */}
-      <PriorityCell taskId={task.id} initial={task.priority} />
+      <div className="flex items-center justify-between gap-3 md:block">
+        <span className="text-[11px] font-semibold uppercase tracking-wide text-gray-300 md:hidden">
+          Priority
+        </span>
+        <PriorityCell taskId={task.id} initial={task.priority} />
+      </div>
 
       {/* Due date */}
-      <DueDateCell taskId={task.id} initial={task.due_date} />
+      <div className="flex items-center justify-between gap-3 md:block">
+        <span className="text-[11px] font-semibold uppercase tracking-wide text-gray-300 md:hidden">
+          Due
+        </span>
+        <DueDateCell taskId={task.id} initial={task.due_date} />
+      </div>
     </div>
   );
 }

@@ -29,9 +29,9 @@ export default async function ProjectsPage() {
   }
 
   return (
-    <div className="p-6">
+    <div className="p-4 sm:p-6">
       {/* Header */}
-      <div className="mb-6 flex items-center justify-between">
+      <div className="mb-5 flex items-center justify-between gap-3 sm:mb-6">
         <div>
           <h1 className="text-xl font-bold text-gray-900">Projects</h1>
           <nav className="mt-1 flex items-center gap-1.5 text-[12px] text-gray-400">
@@ -55,7 +55,7 @@ export default async function ProjectsPage() {
           <p className="mt-1 text-[12px] text-gray-400">Klik &ldquo;New Project&rdquo; untuk membuat project pertama kamu.</p>
         </div>
       ) : (
-        <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+        <div className="grid gap-3 sm:grid-cols-2 sm:gap-4 xl:grid-cols-4">
           {(projects ?? []).map((project) => {
             const { total = 0, done = 0 } = counts[project.id] ?? {};
             const pct = total > 0 ? Math.round((done / total) * 100) : 0;
@@ -64,7 +64,7 @@ export default async function ProjectsPage() {
             return (
               <div
                 key={project.id}
-                className="rounded-xl border border-gray-200 bg-white p-5 shadow-sm transition hover:border-blue-300 hover:shadow-md"
+                className="rounded-xl border border-gray-200 bg-white p-4 shadow-sm transition hover:border-blue-300 hover:shadow-md sm:p-5"
               >
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2.5 min-w-0">

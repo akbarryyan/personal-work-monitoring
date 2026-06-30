@@ -155,7 +155,7 @@ export function UserMenu({ user }: UserMenuProps) {
         </button>
 
         {open && (
-          <div className="absolute right-0 top-full z-50 mt-2 w-56 overflow-hidden rounded-xl border border-gray-200 bg-white py-1 shadow-xl">
+          <div className="absolute right-0 top-full z-50 mt-2 w-[calc(100vw-2rem)] max-w-56 overflow-hidden rounded-xl border border-gray-200 bg-white py-1 shadow-xl">
             <div className="border-b border-gray-100 px-3.5 py-3">
               <p className="truncate text-[13px] font-semibold text-gray-900">
                 {user.name}

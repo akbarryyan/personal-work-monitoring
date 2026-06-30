@@ -131,9 +131,9 @@ export default async function DashboardPage() {
   ];
 
   return (
-    <div className="p-6">
+    <div className="p-4 sm:p-6">
       {/* Page title */}
-      <div className="mb-6 flex items-center justify-between">
+      <div className="mb-5 flex flex-col gap-2 sm:mb-6 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h1 className="text-xl font-bold text-gray-900">Dashboard</h1>
           <nav className="mt-1 flex items-center gap-1.5 text-[12px] text-gray-400">
@@ -148,9 +148,9 @@ export default async function DashboardPage() {
       </div>
 
       {/* Stat cards */}
-      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+      <div className="grid gap-3 sm:grid-cols-2 sm:gap-4 xl:grid-cols-4">
         {statCards.map((card) => (
-          <div key={card.label} className="rounded-xl border border-gray-200 bg-white p-5 shadow-sm">
+          <div key={card.label} className="rounded-xl border border-gray-200 bg-white p-4 shadow-sm sm:p-5">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-[12px] font-medium text-gray-500">{card.label}</p>
@@ -165,19 +165,19 @@ export default async function DashboardPage() {
       </div>
 
       {/* Main content row */}
-      <div className="mt-6 grid gap-4 lg:grid-cols-[minmax(0,1fr)_300px]">
+      <div className="mt-5 grid gap-4 sm:mt-6 lg:grid-cols-[minmax(0,1fr)_300px]">
         {/* Task sections */}
         <div className="space-y-4">
           {taskSections.map((section) => (
             <div key={section.title} className="rounded-xl border border-gray-200 bg-white shadow-sm">
-              <div className="flex items-center gap-2 border-b border-gray-100 px-5 py-4">
+              <div className="flex items-center gap-2 border-b border-gray-100 px-4 py-4 sm:px-5">
                 <span className={`h-2.5 w-2.5 rounded-full ${section.color}`} />
                 <h2 className="text-[14px] font-semibold text-gray-900">{section.title}</h2>
                 <span className="ml-auto rounded-full bg-gray-100 px-2 py-0.5 text-[11px] font-medium text-gray-500">
                   {section.items.length}
                 </span>
               </div>
-              <div className="p-5">
+              <div className="p-4 sm:p-5">
                 {section.items.length === 0 ? (
                   <div className="flex flex-col items-center justify-center py-6 text-center">
                     <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#d1d5db" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
@@ -192,7 +192,7 @@ export default async function DashboardPage() {
                       <Link
                         key={t.id}
                         href={`/tasks/${t.id}`}
-                        className="flex items-center gap-3 rounded-lg px-2 py-2 transition hover:bg-gray-50"
+                      className="flex items-center gap-3 rounded-lg px-2 py-2 transition hover:bg-gray-50"
                       >
                         <span className={`h-2 w-2 shrink-0 rounded-full ${
                           t.priority === "urgent" ? "bg-red-500"
@@ -226,7 +226,7 @@ export default async function DashboardPage() {
           <DashboardCalendar tasks={calendarTasks} />
 
           {/* Weekly summary */}
-          <div className="rounded-xl border border-gray-200 bg-white p-5 shadow-sm">
+          <div className="rounded-xl border border-gray-200 bg-white p-4 shadow-sm sm:p-5">
             <h2 className="text-[14px] font-semibold text-gray-900">Weekly Summary</h2>
             <p className="mt-1 text-[12px] text-gray-400">Minggu ini</p>
             <div className="mt-4 space-y-3">

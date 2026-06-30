@@ -25,12 +25,12 @@ export function PasswordForm() {
 
   return (
     <div className="rounded-xl border border-gray-200 bg-white shadow-sm">
-      <div className="border-b border-gray-100 px-6 py-4">
+      <div className="border-b border-gray-100 px-4 py-4 sm:px-6">
         <h2 className="text-[15px] font-semibold text-gray-900">Keamanan</h2>
         <p className="mt-0.5 text-[12px] text-gray-400">Ubah password akun kamu</p>
       </div>
 
-      <form ref={formRef} action={action} className="px-6 py-5 space-y-4">
+      <form ref={formRef} action={action} className="space-y-4 px-4 py-5 sm:px-6">
         {state.error && (
           <div className="rounded-lg border border-red-200 bg-red-50 px-3 py-2.5 text-[12px] text-red-600">
             {state.error}
@@ -68,7 +68,7 @@ export function PasswordForm() {
           <button
             type="submit"
             disabled={pending}
-            className="flex items-center gap-1.5 rounded-lg bg-gray-800 px-4 py-2 text-[13px] font-semibold text-white transition hover:bg-gray-900 disabled:opacity-60"
+            className="flex w-full items-center justify-center gap-1.5 rounded-full bg-gray-800 px-4 py-2 text-[13px] font-semibold text-white transition hover:bg-gray-900 disabled:opacity-60 sm:w-auto"
           >
             {pending && (
               <span className="h-3.5 w-3.5 animate-spin rounded-full border-2 border-white/30 border-t-white" />

@@ -104,9 +104,9 @@ export default async function TasksPage({
   }
 
   return (
-    <div className="p-6">
+    <div className="p-4 sm:p-6">
       {/* Header */}
-      <div className="mb-6 flex items-center justify-between">
+      <div className="mb-5 flex items-center justify-between gap-3 sm:mb-6">
         <div>
           <h1 className="text-xl font-bold text-gray-900">Tasks</h1>
           <nav className="mt-1 flex items-center gap-1.5 text-[12px] text-gray-400">
@@ -127,8 +127,8 @@ export default async function TasksPage({
       )}
 
       {/* Table */}
-      <div className="rounded-xl border border-gray-200 bg-white shadow-sm overflow-visible">
-        <div className="grid grid-cols-[minmax(0,2fr)_150px_130px_110px_100px] gap-4 border-b border-gray-100 px-5 py-3">
+      <div className="overflow-visible rounded-xl border border-gray-200 bg-white shadow-sm">
+        <div className="hidden grid-cols-[minmax(0,2fr)_150px_130px_110px_100px] gap-4 border-b border-gray-100 px-5 py-3 md:grid">
           <p className="text-[12px] font-semibold uppercase tracking-wide text-gray-400">Task</p>
           <p className="text-[12px] font-semibold uppercase tracking-wide text-gray-400">Project</p>
           <p className="text-[12px] font-semibold uppercase tracking-wide text-gray-400">Status</p>
@@ -154,7 +154,7 @@ export default async function TasksPage({
         </div>
 
         {totalTasks > 0 && (
-          <div className="flex flex-col gap-3 border-t border-gray-100 px-5 py-3 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex flex-col gap-3 border-t border-gray-100 px-4 py-3 sm:flex-row sm:items-center sm:justify-between sm:px-5">
             <p className="text-[12px] text-gray-400">
               Showing <span className="font-medium text-gray-600">{firstItem}</span>
               {" - "}
@@ -164,7 +164,7 @@ export default async function TasksPage({
             </p>
 
             {totalPages > 1 && (
-              <div className="flex items-center gap-1.5">
+              <div className="flex flex-wrap items-center gap-1.5">
                 <Link
                   href={pageHref(Math.max(1, currentPage - 1))}
                   aria-disabled={currentPage <= 1}
