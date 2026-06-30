@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { TaskFilters } from "./_components/task-filters";
 import { NewTaskButton } from "./_components/new-task-button";
 import { TaskTableRow, type RowTask } from "./_components/task-table-row";
 
 export const metadata: Metadata = { title: "Tasks" };
+const PAGE_SIZE = 10;
 
 /* ── Date helpers ── */
 function today() {
@@ -21,6 +23,27 @@ function weekRange() {
   return { start: mon.toISOString().split("T")[0], end: sun.toISOString().split("T")[0] };
 }
 
+function parsePage(value: string | string[] | undefined) {
+  const page = Number(typeof value === "string" ? value : "");
+  return Number.isInteger(page) && page > 0 ? page : 1;
+}
+
+function paginationItems(currentPage: number, totalPages: number) {
+  const pages = new Set([1, totalPages, currentPage - 1, currentPage, currentPage + 1]);
+  const valid = [...pages]
+    .filter((page) => page >= 1 && page <= totalPages)
+    .sort((a, b) => a - b);
+
+  return valid.reduce<(number | "ellipsis")[]>((items, page) => {
+    const previous = items.at(-1);
+    if (typeof previous === "number" && page - previous > 1) {
+      items.push("ellipsis");
+    }
+    items.push(page);
+    return items;
+  }, []);
+}
+
 /* ── Page ── */
 export default async function TasksPage({
   searchParams,
@@ -31,6 +54,9 @@ export default async function TasksPage({
   const q = typeof sp.q === "string" ? sp.q.trim() : "";
   const status = typeof sp.status === "string" ? sp.status : "";
   const period = typeof sp.period === "string" ? sp.period : "";
+  const currentPage = parsePage(sp.page);
+  const from = (currentPage - 1) * PAGE_SIZE;
+  const to = from + PAGE_SIZE - 1;
 
   const supabase = await createClient();
 
@@ -41,7 +67,9 @@ export default async function TasksPage({
 
   let query = supabase
     .from("tasks")
-    .select("id, title, description, status, priority, due_date, projects(id, name, color)")
+    .select("id, title, description, status, priority, due_date, projects(id, name, color)", {
+      count: "exact",
+    })
     .order("created_at", { ascending: false });
 
   if (q) query = query.ilike("title", `%${q}%`);
@@ -56,7 +84,24 @@ export default async function TasksPage({
     query = query.lt("due_date", today()).not("status", "in", "(done,cancelled)");
   }
 
-  const { data: tasks, error } = await query.returns<RowTask[]>();
+  const { data: tasks, error, count } = await query
+    .range(from, to)
+    .returns<RowTask[]>();
+
+  const totalTasks = count ?? 0;
+  const totalPages = Math.max(1, Math.ceil(totalTasks / PAGE_SIZE));
+  const firstItem = totalTasks === 0 ? 0 : from + 1;
+  const lastItem = Math.min(to + 1, totalTasks);
+
+  function pageHref(page: number) {
+    const params = new URLSearchParams();
+    if (q) params.set("q", q);
+    if (status) params.set("status", status);
+    if (period) params.set("period", period);
+    if (page > 1) params.set("page", String(page));
+    const qs = params.toString();
+    return qs ? `/tasks?${qs}` : "/tasks";
+  }
 
   return (
     <div className="p-6">
@@ -107,6 +152,70 @@ export default async function TasksPage({
             </div>
           )}
         </div>
+
+        {totalTasks > 0 && (
+          <div className="flex flex-col gap-3 border-t border-gray-100 px-5 py-3 sm:flex-row sm:items-center sm:justify-between">
+            <p className="text-[12px] text-gray-400">
+              Showing <span className="font-medium text-gray-600">{firstItem}</span>
+              {" - "}
+              <span className="font-medium text-gray-600">{lastItem}</span>
+              {" of "}
+              <span className="font-medium text-gray-600">{totalTasks}</span> tasks
+            </p>
+
+            {totalPages > 1 && (
+              <div className="flex items-center gap-1.5">
+                <Link
+                  href={pageHref(Math.max(1, currentPage - 1))}
+                  aria-disabled={currentPage <= 1}
+                  className={`flex h-8 items-center rounded-lg border px-3 text-[12px] font-medium transition ${
+                    currentPage <= 1
+                      ? "pointer-events-none border-gray-100 text-gray-300"
+                      : "border-gray-200 text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+                  }`}
+                >
+                  Previous
+                </Link>
+
+                {paginationItems(currentPage, totalPages).map((item, index) =>
+                  item === "ellipsis" ? (
+                    <span
+                      key={`ellipsis-${index}`}
+                      className="flex h-8 w-8 items-center justify-center text-[12px] text-gray-300"
+                    >
+                      ...
+                    </span>
+                  ) : (
+                    <Link
+                      key={item}
+                      href={pageHref(item)}
+                      aria-current={item === currentPage ? "page" : undefined}
+                      className={`flex h-8 min-w-8 items-center justify-center rounded-lg border px-2 text-[12px] font-medium transition ${
+                        item === currentPage
+                          ? "border-blue-500 bg-blue-500 text-white"
+                          : "border-gray-200 text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+                      }`}
+                    >
+                      {item}
+                    </Link>
+                  )
+                )}
+
+                <Link
+                  href={pageHref(Math.min(totalPages, currentPage + 1))}
+                  aria-disabled={currentPage >= totalPages}
+                  className={`flex h-8 items-center rounded-lg border px-3 text-[12px] font-medium transition ${
+                    currentPage >= totalPages
+                      ? "pointer-events-none border-gray-100 text-gray-300"
+                      : "border-gray-200 text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+                  }`}
+                >
+                  Next
+                </Link>
+              </div>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );
