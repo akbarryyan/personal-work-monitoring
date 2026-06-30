@@ -131,15 +131,14 @@ export function DashboardCalendar({ tasks }: { tasks: CalendarTask[] }) {
             <button
               key={dateStr}
               onClick={() => setSelected(isSelected ? null : dateStr)}
-              className={`relative flex h-10 flex-col items-center justify-start pt-1.5 text-[13px] transition rounded-lg ${
-                isSelected
-                  ? "bg-gray-100 text-gray-900"
-                  : "text-gray-700 hover:bg-gray-50"
-              }`}
+              className={`relative flex h-10 flex-col items-center justify-start pt-1.5 text-[13px] transition rounded-lg ${isSelected
+                ? "bg-gray-100 text-gray-900"
+                : "text-gray-700 hover:bg-gray-50"
+                }`}
             >
               {/* Today circle — ring outline, no fill, neutral */}
               {isToday ? (
-                <span className={`flex h-6 w-6 items-center justify-center rounded-full text-[12px] font-bold ring-2 ring-gray-800 ${isSelected ? "bg-gray-800 text-white" : "text-gray-900"}`}>
+                <span className={`flex h-6 w-6 py-2 items-center justify-center rounded-full text-[12px] font-bold ring-2 ring-gray-800 ${isSelected ? "bg-gray-800 text-white" : "text-gray-900"}`}>
                   {day}
                 </span>
               ) : (

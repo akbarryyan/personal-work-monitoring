@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { DashboardCalendar, type CalendarTask } from "./_components/dashboard-calendar";
 
@@ -188,7 +189,7 @@ export default async function DashboardPage() {
                 ) : (
                   <div className="space-y-2">
                     {section.items.slice(0, 5).map((t) => (
-                      <a
+                      <Link
                         key={t.id}
                         href={`/tasks/${t.id}`}
                         className="flex items-center gap-3 rounded-lg px-2 py-2 transition hover:bg-gray-50"
@@ -205,11 +206,11 @@ export default async function DashboardPage() {
                             {new Date(t.due_date + "T00:00:00").toLocaleDateString("id-ID", { day: "numeric", month: "short" })}
                           </span>
                         )}
-                      </a>
+                      </Link>
                     ))}
                     {section.items.length > 5 && (
                       <p className="pt-1 text-center text-[12px] text-blue-500 hover:underline">
-                        <a href="/tasks">+{section.items.length - 5} lainnya</a>
+                        <Link href="/tasks">+{section.items.length - 5} lainnya</Link>
                       </p>
                     )}
                   </div>
