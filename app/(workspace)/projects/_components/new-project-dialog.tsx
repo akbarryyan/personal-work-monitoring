@@ -43,16 +43,13 @@ export function NewProjectDialog({
   const handled = useRef(false);
 
   useEffect(() => {
-    if (state.success) {
-      if (handled.current) return;
-      handled.current = true;
-      formRef.current?.reset();
-      setSelectedColor(COLOR_PRESETS[0]);
-      onClose();
-      toast("Project berhasil disimpan.");
-    } else {
-      handled.current = false;
-    }
+    if (!state.success) return;
+    if (handled.current) return;
+    handled.current = true;
+    formRef.current?.reset();
+    setSelectedColor(COLOR_PRESETS[0]);
+    onClose();
+    toast("Project berhasil disimpan.");
   }, [state.success, onClose, toast]);
 
   useEffect(() => {

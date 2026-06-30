@@ -15,6 +15,7 @@ type Project = {
 export function ProjectCardMenu({ project }: { project: Project }) {
   const [open, setOpen] = useState(false);
   const [editOpen, setEditOpen] = useState(false);
+  const [editKey, setEditKey] = useState(0);
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [, startTransition] = useTransition();
   const ref = useRef<HTMLDivElement>(null);
@@ -89,6 +90,7 @@ export function ProjectCardMenu({ project }: { project: Project }) {
                   onClick={(e) => {
                     e.stopPropagation();
                     setOpen(false);
+                    setEditKey((k) => k + 1);
                     setEditOpen(true);
                   }}
                   className="flex w-full items-center gap-2.5 px-3 py-2 text-left text-[13px] text-gray-700 transition hover:bg-gray-50"
@@ -118,6 +120,7 @@ export function ProjectCardMenu({ project }: { project: Project }) {
       </div>
 
       <EditProjectDialog
+        key={editKey}
         project={project}
         open={editOpen}
         onClose={() => setEditOpen(false)}

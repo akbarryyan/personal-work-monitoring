@@ -39,15 +39,12 @@ export function NewTaskDialog({
 
   /* Close and reset on success — guard against double-fire from onClose re-render */
   useEffect(() => {
-    if (state.success) {
-      if (handled.current) return;
-      handled.current = true;
-      formRef.current?.reset();
-      onClose();
-      toast("Task berhasil disimpan.");
-    } else {
-      handled.current = false;
-    }
+    if (!state.success) return;
+    if (handled.current) return;
+    handled.current = true;
+    formRef.current?.reset();
+    onClose();
+    toast("Task berhasil disimpan.");
   }, [state.success, onClose, toast]);
 
   /* Close on Escape */

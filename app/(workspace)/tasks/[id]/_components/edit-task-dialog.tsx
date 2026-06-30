@@ -59,14 +59,11 @@ export function EditTaskDialog({
   const handled = useRef(false);
 
   useEffect(() => {
-    if (state.success) {
-      if (handled.current) return;
-      handled.current = true;
-      onClose();
-      toast("Task berhasil diperbarui.");
-    } else {
-      handled.current = false;
-    }
+    if (!state.success) return;
+    if (handled.current) return;
+    handled.current = true;
+    onClose();
+    toast("Task berhasil diperbarui.");
   }, [state.success, onClose, toast]);
 
   useEffect(() => {

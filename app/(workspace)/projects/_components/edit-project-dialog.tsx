@@ -51,21 +51,11 @@ export function EditProjectDialog({
   const handled = useRef(false);
 
   useEffect(() => {
-    if (open) {
-      setSelectedColor(project.color ?? COLOR_PRESETS[0]);
-      handled.current = false;
-    }
-  }, [open, project.color]);
-
-  useEffect(() => {
-    if (state.success) {
-      if (handled.current) return;
-      handled.current = true;
-      onClose();
-      toast("Project berhasil diperbarui.");
-    } else {
-      handled.current = false;
-    }
+    if (!state.success) return;
+    if (handled.current) return;
+    handled.current = true;
+    onClose();
+    toast("Project berhasil diperbarui.");
   }, [state.success, onClose, toast]);
 
   useEffect(() => {

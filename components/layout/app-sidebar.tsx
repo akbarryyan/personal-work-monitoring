@@ -166,7 +166,7 @@ export function AppSidebar({ user }: { user: SidebarUser }) {
             className="ml-auto text-[11px]"
             style={{ color: C.chevron }}
           >
-            +
+            {isProjects ? "—" : "+"}
           </span>
         </Link>
 

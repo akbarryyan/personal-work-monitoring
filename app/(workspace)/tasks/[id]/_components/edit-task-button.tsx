@@ -16,11 +16,12 @@ type Task = {
 
 export function EditTaskButton({ task, projects }: { task: Task; projects: Project[] }) {
   const [open, setOpen] = useState(false);
+  const [key, setKey] = useState(0);
 
   return (
     <>
       <button
-        onClick={() => setOpen(true)}
+        onClick={() => { setKey((k) => k + 1); setOpen(true); }}
         className="flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-2 text-[13px] font-semibold text-white transition hover:bg-blue-700"
       >
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -31,6 +32,7 @@ export function EditTaskButton({ task, projects }: { task: Task; projects: Proje
       </button>
 
       <EditTaskDialog
+        key={key}
         task={task}
         projects={projects}
         open={open}
