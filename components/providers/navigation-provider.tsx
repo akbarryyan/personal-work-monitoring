@@ -2,13 +2,14 @@
 
 import {
   createContext,
+  Suspense,
   useCallback,
   useContext,
   useEffect,
   useRef,
   useState,
 } from "react";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 
 const IsNavigatingCtx = createContext(false);
 
@@ -20,16 +21,14 @@ export function NavigationProvider({
   children: React.ReactNode;
 }) {
   const [isNavigating, setIsNavigating] = useState(false);
-  const pathname = usePathname();
   const pendingRef = useRef(false);
 
-  /* Clear loading state when route change is complete */
-  useEffect(() => {
+  const clearLoading = useCallback(() => {
     if (pendingRef.current) {
       pendingRef.current = false;
       setIsNavigating(false);
     }
-  }, [pathname]);
+  }, []);
 
   /* Detect navigation start via global anchor-click listener */
   const startLoading = useCallback(() => {
@@ -47,6 +46,13 @@ export function NavigationProvider({
       /* Only internal relative links */
       if (!href || !href.startsWith("/")) return;
       if (anchor.target && anchor.target !== "_self") return;
+      const nextUrl = new URL(href, window.location.origin);
+      if (
+        nextUrl.pathname === window.location.pathname &&
+        nextUrl.search === window.location.search
+      ) {
+        return;
+      }
       startLoading();
     }
 
@@ -57,7 +63,22 @@ export function NavigationProvider({
 
   return (
     <IsNavigatingCtx.Provider value={isNavigating}>
+      <Suspense fallback={null}>
+        <NavigationEvents onChange={clearLoading} />
+      </Suspense>
       {children}
     </IsNavigatingCtx.Provider>
   );
+}
+
+function NavigationEvents({ onChange }: { onChange: () => void }) {
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const currentUrl = `${pathname}?${searchParams.toString()}`;
+
+  useEffect(() => {
+    queueMicrotask(onChange);
+  }, [currentUrl, onChange]);
+
+  return null;
 }
