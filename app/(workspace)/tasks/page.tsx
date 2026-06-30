@@ -190,7 +190,7 @@ export default async function TasksPage({
                       key={item}
                       href={pageHref(item)}
                       aria-current={item === currentPage ? "page" : undefined}
-                      className={`flex h-8 min-w-8 items-center justify-center rounded-lg border px-2 text-[12px] font-medium transition ${
+                      className={`flex h-8 min-w-8 items-center justify-center rounded-full border px-2 text-[12px] font-medium transition ${
                         item === currentPage
                           ? "border-blue-500 bg-blue-500 text-white"
                           : "border-gray-200 text-gray-600 hover:bg-gray-50 hover:text-gray-900"
