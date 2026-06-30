@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { LoginForm } from "./_components/login-form";
 
 export const metadata: Metadata = {
@@ -10,16 +11,18 @@ export default function LoginPage() {
     <div className="flex min-h-screen" style={{ background: "#f5f6fa" }}>
       {/* Left branding panel */}
       <div
-        className="hidden lg:flex lg:w-105 lg:shrink-0 flex-col justify-between p-10"
+        className="hidden min-h-screen lg:flex lg:w-1/2 flex-col justify-between p-10"
         style={{ background: "#1b1f2e" }}
       >
-        <div className="flex items-center gap-3">
-          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-blue-500">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
-            </svg>
-          </div>
-          <span className="text-[16px] font-bold tracking-wide text-white">WorkMon</span>
+        <div className="flex items-center">
+          <Image
+            src="/work-dash-brand.png"
+            alt="WorkDash"
+            width={1061}
+            height={175}
+            priority
+            className="h-7 w-auto object-contain"
+          />
         </div>
 
         <div>
@@ -54,20 +57,22 @@ export default function LoginPage() {
           </div>
         </div>
 
-        <p className="text-[12px] text-white/20">© 2026 WorkMon. Personal use only.</p>
+        <p className="text-[12px] text-white/20">© 2026 WorkDash. Personal use only.</p>
       </div>
 
       {/* Right login form */}
-      <div className="flex flex-1 items-center justify-center px-6 py-10">
+      <div className="flex min-h-screen w-full items-center justify-center px-6 py-10 lg:w-1/2">
         <div className="w-full max-w-95">
           {/* Mobile logo */}
-          <div className="mb-8 flex items-center gap-3 lg:hidden">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-500">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
-              </svg>
-            </div>
-            <span className="text-[15px] font-bold text-gray-900">WorkMon</span>
+          <div className="mb-8 flex items-center lg:hidden">
+            <Image
+              src="/work-dash-brand.png"
+              alt="WorkDash"
+              width={1061}
+              height={175}
+              priority
+              className="h-6 w-auto object-contain"
+            />
           </div>
 
           <h2 className="text-2xl font-bold text-gray-900">Welcome back</h2>
